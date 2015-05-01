@@ -1,0 +1,124 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#header {
+    padding: 4px 8px;
+    background-color: #dedede;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-size: 25;
+    color: #b1552d;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 15px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.89);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    display: block
+}
+
+.legend {
+    line-height: 19px;
+    color: #585656;
+}
+
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 1;
+    border-radius: 50%
+}
+
+.legend span,
+.legend label {
+    display: block;
+    width: 50px;
+    height: 18px;
+    float: left;
+    opacity: 0.7;
+    text-align: center;
+    font-size: 80%;
+	font-family: "Roboto" sans-serif
+}
+
+.legend h1 {
+    color: #666;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#leaflet-slider {
+    width: 416px !important;
+    margin-bottom: -3px;
+}
+
+#slider-timestamp {
+	margin-top: -30px !important;
+	background: rgb(255, 255, 255);
+	background: rgba(255, 255, 255, 0.89) !important;
+	font-family: "Roboto" sans-serif !important;
+	color: #666;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+
+body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltiptext {
+    font-family: 'Roboto', sans-serif
+}
+
+.lorem {
+    font-style: italic;
+    font-family: 'Roboto', sans-serif;
+}
+h1 {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    font-family:'Montserrat', sans-serif;
+}
+
+#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control > form{
+	margin-bottom: 0;
+}
+
+#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control > form > div.leaflet-control-layers-overlays > label > span {
+	font-family: "Roboto" sans-serif !important;
+	color: #666;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control {
+	background: rgb(255, 255, 255);
+	background: rgba(255, 255, 255, 0.89);
+}
+
+#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control {
+	margin-bottom: 8px;
+}
