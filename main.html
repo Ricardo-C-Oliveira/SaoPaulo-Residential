@@ -1,0 +1,297 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Sao Paulo</title>
+    <script>L_PREFER_CANVAS = true;</script>
+
+    <link rel="stylesheet" type="text/css" href="Style.css">
+    
+    <link href="//fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css"/>
+	<link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css"/>
+
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+
+    <script src="plugins/jquery-1.11.2.min.js"></script>
+
+    <script src="plugins/LeafletSlider-master/LeafletSlider-master/SliderControl.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="plugins/sidebar/leaflet-sidebar.css">
+    <link rel="stylesheet" href="plugins/font-awesome/font-awesome-4.3.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="plugins/highlight/styles/monokai.css">
+
+    <script src="plugins/sidebar/leaflet-sidebar.js"></script>
+    <script src="plugins/highlight/highlight.pack.js"></script>
+    <link rel="stylesheet" href="plugins/highlight/styles/monokai.css">
+
+    <link rel="stylesheet" href="plugins/intro.js-master/intro.js-master/introjs.css">
+    <script src="plugins/intro.js-master/intro.js-master/intro.js"></script>
+
+
+</head>
+
+
+<body>
+
+
+    <script type="text/javascript">
+        //intro js
+        $(function () {
+            var introguide = introJs();
+            introguide.setOptions({
+                steps: [
+                    {
+                        element: document.querySelector('#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control'),
+                        intro: 'Check this box to show all developments at the same time, this may lead to decrease in performance.',
+                        position: 'left'
+    },
+                    {
+                        element: document.querySelector('#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.slider.leaflet-control'),
+                        intro: 'Move this slide to navigate trhough the years. Keep in mind that for performance reasons only 1500 points are displayed at a time.',
+                        position: 'top'
+    },
+                    {
+                        element: document.querySelector('#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.info.legend.leaflet-control'),
+                        intro: 'Although we have this handy legend here, explore the data by clicking the points to get specific years for each development.',
+                        position: 'top'
+    },
+					{
+					element: document.querySelector('#sidebar'),
+					intro: 'Over here you will find more information about this project.',
+					position: 'right'
+				}
+
+    ]
+            });
+
+            introguide.start();
+
+        });
+    </script>
+
+    <script>
+        //javascript highlight plugin
+        hljs.initHighlightingOnLoad();
+    </script>
+
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <ul class="sidebar-tabs" role="tablist">
+            <li><a href="#home" role="tab"><i class="fa fa-question-circle"></i></a>
+            </li>
+            <li><a href="#changelog" role="tab"><i class="fa fa-gear"></i></a>
+            </li>
+            <li><a href="#contact" role="tab"><i class="fa fa-envelope"></i></a>
+            </li>
+
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content active">
+            <div class="sidebar-pane" id="home">
+                <h1>São Paulo's Residential Development</h1>
+
+                <p class="lorem">This project started in the spring of 2015 as an independent study in the geography program at the University of Colorado at Denver. The goal of this project was to explore how to combine different FOSS4G (Free and Open Source Software for Geospatial Applications) technologies into a single product. The theme chosen for this project was the historical urban past of Denver. </p>
+
+                <p class="lorem">The Denver public library holds and amazing collection of Sanborn fire insurance map on its archives, such maps were photographed and then digitized in QGIS. Each building in Denver lower downtown was copied into digital format with its attributes such as building use, name of the business if any, number of floors and so on. </p>
+
+                <p class="lorem">To store this data we chose PostgreSQL given its proven stability and flexibility. To work with spatial data on this system we used PostGIS which is the spatial extension for PostgreSQL. With our data stored in a stable RDBMS the next step was to serve it to the web, for this we used Geoserver. The last piece was to create the end-user platform where the data would be displayed, although there are many solid choices out there we decided that Leaflet provided all the key aspects in a neat package. Leaflet is stable, lightwaight and more importantly vastly expandable. </p>
+
+                <p class="lorem">The trickest part on this project was to create a way of how leaflet would be able to render the data being served by Geoserver. But given the fact that leaflet is written in javascript we could jQuery to connect the two pieces together. The AJAX call is shown below, note that once the call is succefully made we attibute the data to a specific variable to be used later on, in this case the dataset1.</p>
+
+                <pre><code class="js">
+$.ajax({
+   url: "http://localhost:8181/geoserver/PastDenver/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=PastDenver:dataset3&maxFeatures=300&outputFormat=text/javascript&format_options=callback:getJson1",
+        dataType: 'jsonp',
+        jsonpCallback: 'getJson1',
+        success: function (response) {
+            WFSLayers = L.geoJson(response, {
+                style: function (feature) {
+                    return {
+                        weight: 5,
+                        color: '#6e7ce8',
+                        weight: 2,
+                        opacity: 1,
+                        dashArray: '3',
+                        fillOpacity: 0.7,
+                    };
+                },
+                onEachFeature: effects
+            }).addTo(dataset1);
+        }
+    });
+</code></pre>
+
+
+            </div>
+            <div class="sidebar-pane" id="changelog">
+                <h1>Changelog</h1>
+
+                <p class="lorem"><b>3/30/15</b> Add highlight.js to show snapshot of code.</p>
+                <p class="lorem"><b>3/30/15</b> Removes fullscream function, was conflicting with sidepane.</p>
+                <p class="lorem"><b>3/29/15</b> Add sidepane</p>
+            </div>
+
+            <div class="sidebar-pane" id="contact">
+                <h1>Contact</h1>
+
+                <p class="lorem"><b>Ricardo Oliveira</b> Geography and Enviromental Science - University of Colorado</p>
+                <p class="lorem">ricardo.oliveira@ucdenver.edu</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script rel="points" type="text/javascript" src="data/SP_Res_SinglePoint_Asc.js"></script>
+    <script src="data/SPbnd.js"></script>
+
+    <div id="map" class="sidebar-map">
+
+        <script>
+            //the variable map where everything else will be add
+            var map = L.map('map', {
+                'zoomControl': false,
+            }).setView([-23.6759, -46.6468], 11);
+
+            //zoom custom position
+            L.control.zoom({
+                position: 'topright'
+            }).addTo(map);
+
+            //the base map
+            L.tileLayer("http://{s}.sm.mapstack.stamen.com/(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/{z}/{x}/{y}.png", {
+                maxZoom: 18,
+                attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>'
+            }).addTo(map);
+
+
+            //function to get specif colors based on year
+            function getColor(d) {
+                return d < 1985 ? '#ffffd9' :
+                    d < 1989 ? '#edf8b1' :
+                    d < 1993 ? '#c7e9b4' :
+                    d < 1997 ? '#7fcdbb' :
+                    d < 2001 ? '#41b6c4' :
+                    d < 2005 ? '#1d91c0' :
+                    d < 2009 ? '#225ea8' :
+                    d < 2013 ? '#0c2c84' :
+                    '#130048';
+            }
+
+            //style function
+            function Style(feature) {
+                return {
+                    fillColor: getColor(feature.properties.Time),
+                    stroke: false,
+                    opacity: 1,
+                    color: "#000",
+                    fillOpacity: 0.8,
+                    weight: 1,
+                    radius: 5
+                };
+            }
+
+            //legend section
+            var legend = L.control({
+                position: 'bottomright'
+            });
+
+            legend.onAdd = function (map) {
+
+                var div = L.DomUtil.create('div', 'info legend'),
+                    grades = [1985, 1989, 1993, 1997, 2001, 2005, 2009, 2013],
+                    labels = [];
+
+                div.innerHTML += '<h1> Year Built </h1>';
+
+                // loop through our getColor function intervals and generate a label with a colored square for each interval
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<span style="background:' + getColor(grades[i] + 1) + '"></span> ';
+                }
+
+                //a line breaK
+                div.innerHTML += '<br>';
+
+                //second loop for text
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<label>' + grades[i] + (grades[i + 1] ? ' - ' + grades[i + 1] : '') + '</label>';
+                }
+
+                return div;
+            };
+
+            legend.addTo(map);
+
+            var geojsonMarkerOptions = {
+                radius: 10,
+                fillColor: "rgb(255,0,195)",
+                color: "#fff",
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 1
+            };
+
+            var SaoPaulo = L.geoJson(SP_ResSinglePoint, {
+
+                pointToLayer: function (feature, latlng) {
+                    var popupContent = "<b>Year Built: </b>" + feature.properties.Time;
+                    //console.log(popupContent);
+                    return L.circleMarker(latlng, Style(feature)).bindPopup(popupContent);
+                },
+
+            });
+
+            //Create sliderControl
+
+            var sliderControl = L.control.sliderControl({
+                position: "bottomright",
+                layer: SaoPaulo,
+                //range: true,
+                timeAttribute: "Timestrg",
+                follow: 1500,
+				//alwaysShowDate: true,
+
+            });
+
+            //add sliderControl to the map
+            map.addControl(sliderControl);
+
+            //initialize sliderControl
+            sliderControl.startSlider();
+
+
+
+            L.geoJson(saopaulobnd, {
+                weight: 2,
+                opacity: 1,
+                color: '#017fad',
+                dashArray: '3',
+                fillOpacity: 0
+            }).addTo(map);
+            
+            var sidebar = L.control.sidebar('sidebar').addTo(map);
+			
+			//group the datasets
+     var overlays = {
+         "All Developments": SaoPaulo
+     };
+
+
+     //create the layer control
+     L.control.layers(null, overlays, {
+         collapsed: false,
+         position: 'bottomright'
+     }).addTo(map);
+        </script>
+
+
+    </div>
+
+</body>
