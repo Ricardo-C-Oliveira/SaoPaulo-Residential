@@ -96,37 +96,9 @@
             <div class="sidebar-pane" id="home">
                 <h1>São Paulo's Residential Development</h1>
 
-                <p class="lorem">This project started in the spring of 2015 as an independent study in the geography program at the University of Colorado at Denver. The goal of this project was to explore how to combine different FOSS4G (Free and Open Source Software for Geospatial Applications) technologies into a single product. The theme chosen for this project was the historical urban past of Denver. </p>
+                <p class="lorem">This project started in the spring of 2015 as an independent study in the geography program at the University of Colorado at Denver. The goal of this project was to explore how to combine different FOSS4G (Free and Open Source Software for Geospatial Applications) technologies into a single product. The theme chosen for this project was the residential development evolution of the city of Sao Paulo, Brazil. </p>
 
-                <p class="lorem">The Denver public library holds and amazing collection of Sanborn fire insurance map on its archives, such maps were photographed and then digitized in QGIS. Each building in Denver lower downtown was copied into digital format with its attributes such as building use, name of the business if any, number of floors and so on. </p>
-
-                <p class="lorem">To store this data we chose PostgreSQL given its proven stability and flexibility. To work with spatial data on this system we used PostGIS which is the spatial extension for PostgreSQL. With our data stored in a stable RDBMS the next step was to serve it to the web, for this we used Geoserver. The last piece was to create the end-user platform where the data would be displayed, although there are many solid choices out there we decided that Leaflet provided all the key aspects in a neat package. Leaflet is stable, lightwaight and more importantly vastly expandable. </p>
-
-                <p class="lorem">The trickest part on this project was to create a way of how leaflet would be able to render the data being served by Geoserver. But given the fact that leaflet is written in javascript we could jQuery to connect the two pieces together. The AJAX call is shown below, note that once the call is succefully made we attibute the data to a specific variable to be used later on, in this case the dataset1.</p>
-
-                <pre><code class="js">
-$.ajax({
-   url: "http://localhost:8181/geoserver/PastDenver/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=PastDenver:dataset3&maxFeatures=300&outputFormat=text/javascript&format_options=callback:getJson1",
-        dataType: 'jsonp',
-        jsonpCallback: 'getJson1',
-        success: function (response) {
-            WFSLayers = L.geoJson(response, {
-                style: function (feature) {
-                    return {
-                        weight: 5,
-                        color: '#6e7ce8',
-                        weight: 2,
-                        opacity: 1,
-                        dashArray: '3',
-                        fillOpacity: 0.7,
-                    };
-                },
-                onEachFeature: effects
-            }).addTo(dataset1);
-        }
-    });
-</code></pre>
-
+               
 
             </div>
             <div class="sidebar-pane" id="changelog">
